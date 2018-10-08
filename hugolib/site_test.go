@@ -607,7 +607,7 @@ my_param = "baz"
 my_date = 2010-05-27T07:32:00Z
 categories = [ "hugo" ]
 +++
-Front Matter with Ordered Pages 4. This is longer content`
+Front Matter with Ordered Pages 4. <div>This is longer content with vertical tab: .</div>`
 
 var weightedSources = [][2]string{
 	{filepath.FromSlash("sect/doc1.md"), weightedPage1},

@@ -73,6 +73,11 @@ func init() {
 			[][2]string{},
 		)
 
+		ns.AddMethodMapping(ctx.XML,
+			[]string{"XML"},
+			[][2]string{},
+		)
+
 		return ns
 
 	}
