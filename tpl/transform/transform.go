@@ -15,9 +15,11 @@ package transform
 
 import (
 	"bytes"
+	"encoding/xml"
 	"html"
 	"html/template"
 
+	bp "github.com/gohugoio/hugo/bufferpool"
 	"github.com/gohugoio/hugo/deps"
 	"github.com/gohugoio/hugo/helpers"
 	"github.com/spf13/cast"
@@ -78,6 +80,21 @@ func (ns *Namespace) HTMLUnescape(s interface{}) (string, error) {
 	}
 
 	return html.UnescapeString(ss), nil
+}
+
+// XMLEscape returns a copy of s with reserved XML characters escaped.
+func (ns *Namespace) XMLEscape(s interface{}) (string, error) {
+	ss, err := cast.ToStringE(s)
+	if err != nil {
+		return "", err
+	}
+
+	buf := bp.GetBuffer()
+	defer bp.PutBuffer(buf)
+	if err := xml.EscapeText(buf, []byte(ss)); err != nil {
+		return "", err
+	}
+	return buf.String(), nil
 }
 
 var (
