@@ -14,8 +14,6 @@
 package safe
 
 import (
-	"bytes"
-	"encoding/xml"
 	"html/template"
 
 	"github.com/gohugoio/hugo/helpers"
@@ -70,17 +68,4 @@ func (ns *Namespace) URL(a interface{}) (template.URL, error) {
 func (ns *Namespace) SanitizeURL(a interface{}) (string, error) {
 	s, err := cast.ToStringE(a)
 	return helpers.SanitizeURL(s), err
-}
-
-// XML returns a string escaped as XML and flagged to not be escaped as HTML.
-func (ns *Namespace) XML(a interface{}) (template.HTML, error) {
-	s, err := cast.ToStringE(a)
-	if err != nil {
-		return "", err
-	}
-	var buf bytes.Buffer
-	if err := xml.EscapeText(&buf, []byte(s)); err != nil {
-		return "", err
-	}
-	return template.HTML(buf.String()), nil
 }
